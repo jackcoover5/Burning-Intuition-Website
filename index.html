@@ -1,0 +1,863 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Level Up Biology | Health & Performance Consulting</title>
+  <meta name="description" content="Biology-based consulting for carnivore/animal-based nutrition, mental health, focus, energy, and self-improvement." />
+
+  <style>
+    :root{
+      --bg:#070a0f;
+      --panel:#0c1220;
+      --panel2:#0a1020;
+      --text:#e8eefc;
+      --muted:#a9b4d0;
+      --border:rgba(255,255,255,.10);
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --accent:#3cff7a; /* neon green */
+      --accent2:#5aa7ff;
+      --danger:#ff4d6d;
+      --radius:22px;
+      --max:1120px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(900px 600px at 10% 10%, rgba(60,255,122,.14), transparent 60%),
+        radial-gradient(800px 500px at 85% 25%, rgba(90,167,255,.14), transparent 55%),
+        radial-gradient(700px 500px at 55% 85%, rgba(255,77,109,.10), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.55;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max);margin:0 auto;padding:0 20px}
+
+    /* NAV */
+    .nav{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(7,10,15,.65);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-inner{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px
+    }
+    .logo{
+      width:36px;height:36px;border-radius:12px;
+      background: linear-gradient(135deg, rgba(60,255,122,.95), rgba(90,167,255,.95));
+      box-shadow: 0 12px 30px rgba(60,255,122,.15);
+      position:relative;
+    }
+    .logo:after{
+      content:"";
+      position:absolute;inset:9px;
+      border-radius:10px;
+      background: rgba(7,10,15,.85);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    .nav-links{
+      display:flex;align-items:center;gap:18px;
+      color:var(--muted);
+      font-weight:600;
+      font-size:14px;
+    }
+    .nav-links a:hover{color:var(--text)}
+    .nav-cta{
+      display:flex;align-items:center;gap:10px;
+    }
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      font-weight:700;
+      font-size:14px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      cursor:pointer;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{transform: translateY(-1px);background: rgba(255,255,255,.06)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(60,255,122,.95), rgba(90,167,255,.90));
+      border-color: rgba(60,255,122,.55);
+      color:#061015;
+      box-shadow: 0 18px 50px rgba(60,255,122,.18);
+    }
+    .btn.primary:hover{background: linear-gradient(135deg, rgba(60,255,122,1), rgba(90,167,255,1))}
+    .btn.ghost{background: transparent}
+    .btn.small{padding:9px 12px;border-radius:12px;font-size:13px}
+
+    .hamburger{
+      display:none;
+      width:42px;height:42px;border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      align-items:center;justify-content:center;
+    }
+    .hamburger span{
+      width:18px;height:2px;background: var(--text);display:block;
+      position:relative;border-radius:10px;
+    }
+    .hamburger span:before,.hamburger span:after{
+      content:"";position:absolute;left:0;width:18px;height:2px;background: var(--text);
+      border-radius:10px;
+    }
+    .hamburger span:before{top:-6px}
+    .hamburger span:after{top:6px}
+
+    /* MOBILE MENU */
+    .mobile-menu{
+      display:none;
+      border-top:1px solid var(--border);
+      padding:14px 0 18px;
+    }
+    .mobile-menu a{
+      display:block;
+      padding:10px 0;
+      color:var(--muted);
+      font-weight:650;
+    }
+    .mobile-menu a:hover{color:var(--text)}
+    .mobile-menu .row{
+      display:flex;gap:10px;flex-wrap:wrap;margin-top:10px
+    }
+
+    /* HERO */
+    .hero{
+      padding:64px 0 36px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:26px;
+      align-items:stretch;
+    }
+    .badge{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:8px 12px;border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:var(--muted);
+      font-weight:650;
+      font-size:13px;
+      width:fit-content;
+    }
+    .dot{
+      width:8px;height:8px;border-radius:999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(60,255,122,.12);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size: clamp(34px, 4.2vw, 54px);
+      line-height:1.05;
+      letter-spacing:-.6px;
+    }
+    .lead{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      max-width:58ch;
+    }
+    .hero-actions{
+      margin-top:18px;
+      display:flex;gap:12px;flex-wrap:wrap;
+    }
+    .mini{
+      margin-top:14px;
+      display:flex;gap:14px;flex-wrap:wrap;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .mini span{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 10px;border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+    }
+    .mini i{
+      width:8px;height:8px;border-radius:999px;
+      background: rgba(90,167,255,.95);
+      box-shadow: 0 0 0 6px rgba(90,167,255,.12);
+    }
+
+    .card{
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .hero-card{
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-card:before{
+      content:"";
+      position:absolute;inset:-2px;
+      background: radial-gradient(600px 220px at 20% 10%, rgba(60,255,122,.18), transparent 55%),
+                  radial-gradient(500px 240px at 80% 20%, rgba(90,167,255,.16), transparent 55%);
+      pointer-events:none;
+      filter: blur(0px);
+    }
+    .hero-card > *{position:relative}
+    .kpi-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .kpi{
+      padding:14px;
+      border-radius:18px;
+      border:1px solid var(--border);
+      background: rgba(7,10,15,.55);
+    }
+    .kpi .num{
+      font-weight:900;
+      font-size:18px;
+      letter-spacing:-.2px;
+    }
+    .kpi .label{
+      color:var(--muted);
+      font-size:13px;
+      margin-top:4px;
+    }
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 10px;border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:13px;
+      width:fit-content;
+    }
+    .pill b{color:var(--text)}
+    .stack{
+      display:flex;flex-wrap:wrap;gap:10px;
+    }
+
+    /* SECTIONS */
+    section{padding:40px 0}
+    .section-head{
+      display:flex;align-items:flex-end;justify-content:space-between;gap:16px;
+      margin-bottom:16px;
+    }
+    h2{
+      margin:0;
+      font-size: clamp(22px, 2.6vw, 30px);
+      letter-spacing:-.35px;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      max-width:70ch;
+      font-size:14px;
+    }
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    .feature{
+      padding:18px;
+    }
+    .icon{
+      width:42px;height:42px;border-radius:16px;
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      margin-bottom:10px;
+      font-weight:900;
+      color: var(--accent);
+    }
+    .feature h3{margin:0 0 6px;font-size:16px}
+    .feature p{margin:0;color:var(--muted);font-size:14px}
+
+    /* PROGRAMS */
+    .program{
+      padding:18px;
+      display:flex;flex-direction:column;gap:10px;
+      min-height: 240px;
+    }
+    .tag{
+      display:inline-flex;align-items:center;gap:8px;
+      width:fit-content;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+    }
+    .program h3{margin:0;font-size:18px}
+    .program .desc{margin:0;color:var(--muted);font-size:14px}
+    ul.clean{
+      margin:0;padding-left:18px;color:var(--muted);font-size:14px;
+    }
+    ul.clean li{margin:6px 0}
+    .program .bottom{
+      margin-top:auto;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding-top:10px;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    .price{
+      font-weight:900;
+      letter-spacing:-.2px;
+    }
+    .note{color:var(--muted);font-size:12px}
+
+    /* TESTIMONIALS */
+    .quote{
+      padding:18px;
+      position:relative;
+    }
+    .quote:before{
+      content:"“";
+      position:absolute;left:16px;top:6px;
+      font-size:52px;
+      color: rgba(255,255,255,.08);
+      font-weight:900;
+      line-height:1;
+    }
+    .quote p{
+      margin:14px 0 10px;
+      color:var(--text);
+      font-size:14px;
+    }
+    .quote .who{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:650;
+    }
+
+    /* FAQ */
+    details{
+      border:1px solid var(--border);
+      border-radius:18px;
+      background: rgba(255,255,255,.03);
+      padding:14px 16px;
+    }
+    details + details{margin-top:10px}
+    summary{
+      cursor:pointer;
+      font-weight:800;
+      list-style:none;
+      outline:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    details p{margin:10px 0 0;color:var(--muted);font-size:14px}
+
+    /* CONTACT */
+    form{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:650}
+    input, textarea, select{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(7,10,15,.55);
+      color:var(--text);
+      outline:none;
+    }
+    textarea{grid-column:1/-1;min-height:120px;resize:vertical}
+    .full{grid-column:1/-1}
+    .form-actions{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-start
+    }
+    .fineprint{
+      color:var(--muted);
+      font-size:12px;
+      margin:0;
+    }
+
+    /* FOOTER */
+    footer{
+      padding:30px 0 44px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .footer-row{
+      display:flex;align-items:flex-start;justify-content:space-between;gap:18px;flex-wrap:wrap
+    }
+    .footer-row a{color:var(--muted)}
+    .footer-row a:hover{color:var(--text)}
+    .tiny{
+      opacity:.85;
+      max-width:70ch;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px){
+      .hero-grid{grid-template-columns:1fr;gap:16px}
+      .grid3{grid-template-columns:1fr}
+      .grid2{grid-template-columns:1fr}
+      form{grid-template-columns:1fr}
+      .nav-links{display:none}
+      .hamburger{display:flex}
+      .mobile-menu{display:none}
+      .mobile-menu.open{display:block}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a class="brand" href="#top" aria-label="Home">
+          <span class="logo" aria-hidden="true"></span>
+          <span>Level Up Biology</span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="#services">Services</a>
+          <a href="#programs">Programs</a>
+          <a href="#results">Results</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="nav-cta">
+          <a class="btn ghost small" href="#programs">View Programs</a>
+          <a class="btn primary small" href="#contact">Book Free Call</a>
+
+          <button class="hamburger" id="hamburger" aria-label="Open menu">
+            <span></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+        <a href="#services">Services</a>
+        <a href="#programs">Programs</a>
+        <a href="#results">Results</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+        <div class="row">
+          <a class="btn ghost" href="#programs">View Programs</a>
+          <a class="btn primary" href="#contact">Book Free Call</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main id="top" class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="badge">
+            <span class="dot" aria-hidden="true"></span>
+            Biology-based consulting • Focus • Energy • Carnivore
+          </div>
+
+          <h1>Level up your mind + body using biology.</h1>
+          <p class="lead">
+            I help driven people fix energy crashes, sharpen focus, improve mood, and build discipline through
+            <b>animal-based nutrition</b>, performance habits, and simple systems you can actually stick to.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="#contact">Book a Free Consultation</a>
+            <a class="btn" href="#programs">See Programs</a>
+          </div>
+
+          <div class="mini" aria-label="Key outcomes">
+            <span><i aria-hidden="true"></i> Stable energy</span>
+            <span><i aria-hidden="true"></i> Better focus</span>
+            <span><i aria-hidden="true"></i> Calm mood</span>
+            <span><i aria-hidden="true"></i> Strong discipline</span>
+          </div>
+        </div>
+
+        <aside class="card hero-card" aria-label="Quick snapshot">
+          <div class="pill"><b>What we optimize:</b> food • sleep • focus • mindset</div>
+
+          <div class="kpi-grid">
+            <div class="kpi">
+              <div class="num">7–14 days</div>
+              <div class="label">to feel energy stabilize (typical)</div>
+            </div>
+            <div class="kpi">
+              <div class="num">1 system</div>
+              <div class="label">you follow daily (no chaos)</div>
+            </div>
+            <div class="kpi">
+              <div class="num">Weekly</div>
+              <div class="label">check-ins + accountability</div>
+            </div>
+            <div class="kpi">
+              <div class="num">Real</div>
+              <div class="label">habits you keep long-term</div>
+            </div>
+          </div>
+
+          <div class="stack">
+            <span class="pill">🥩 Carnivore / animal-based</span>
+            <span class="pill">🧠 Mental performance</span>
+            <span class="pill">⚡ Energy & routines</span>
+            <span class="pill">🎯 Deep work systems</span>
+          </div>
+
+          <a class="btn primary" href="#contact">Start With a Free Call</a>
+          <p class="note">No pressure. I’ll map your next 30 days and tell you the fastest path forward.</p>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>What I help you fix</h2>
+          <p class="sub">
+            Most people don’t need more motivation — they need a body and brain that can execute.
+            We remove the friction and build a repeatable system.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card feature">
+          <div class="icon">⚡</div>
+          <h3>Energy & Recovery</h3>
+          <p>Stabilize energy, reduce crashes, improve sleep quality, and stop feeling “wired but tired.”</p>
+        </div>
+
+        <div class="card feature">
+          <div class="icon">🎯</div>
+          <h3>Focus & Discipline</h3>
+          <p>Build deep work habits, reduce distractions, and train consistency like a skill.</p>
+        </div>
+
+        <div class="card feature">
+          <div class="icon">🧠</div>
+          <h3>Mood & Mental Clarity</h3>
+          <p>Support your nervous system, reduce overwhelm, and get your mind working with you again.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section id="programs">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Programs</h2>
+          <p class="sub">Pick the track that matches your goal. If you’re unsure, we’ll choose on the free call.</p>
+        </div>
+        <a class="btn" href="#contact">Apply / Book</a>
+      </div>
+
+      <div class="grid3">
+        <div class="card program">
+          <span class="tag">🥩 Nutrition</span>
+          <h3>Carnivore / Animal-Based Reset</h3>
+          <p class="desc">For brain fog, inflammation, cravings, and unstable energy.</p>
+          <ul class="clean">
+            <li>Simple meal structure + grocery rules</li>
+            <li>Electrolytes + adaptation support</li>
+            <li>Cravings + social strategy</li>
+            <li>Weekly check-ins</li>
+          </ul>
+          <div class="bottom">
+            <div>
+              <div class="price">$299–$599</div>
+              <div class="note">4 weeks (typical)</div>
+            </div>
+            <a class="btn primary small" href="#contact">Start</a>
+          </div>
+        </div>
+
+        <div class="card program">
+          <span class="tag">🧠 Mental performance</span>
+          <h3>Focus + Productivity Coaching</h3>
+          <p class="desc">For procrastination, distraction, and low drive.</p>
+          <ul class="clean">
+            <li>Deep work protocol (daily)</li>
+            <li>Dopamine control system</li>
+            <li>Morning + night routine blueprint</li>
+            <li>Accountability tracking</li>
+          </ul>
+          <div class="bottom">
+            <div>
+              <div class="price">$499–$899</div>
+              <div class="note">6 weeks (typical)</div>
+            </div>
+            <a class="btn primary small" href="#contact">Start</a>
+          </div>
+        </div>
+
+        <div class="card program">
+          <span class="tag">⚡ Full transformation</span>
+          <h3>Full “Level Up” Coaching</h3>
+          <p class="desc">For a complete mind-body upgrade with weekly strategy calls.</p>
+          <ul class="clean">
+            <li>Nutrition + training + mindset</li>
+            <li>Weekly calls + custom plan</li>
+            <li>Habit scorecard + metrics</li>
+            <li>High-performance lifestyle rebuild</li>
+          </ul>
+          <div class="bottom">
+            <div>
+              <div class="price">$1200–$2500+</div>
+              <div class="note">12 weeks (typical)</div>
+            </div>
+            <a class="btn primary small" href="#contact">Apply</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Results people want</h2>
+          <p class="sub">You’re not broken — your system is. Here are common wins clients aim for.</p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card feature">
+          <div class="icon">📈</div>
+          <h3>More output, less stress</h3>
+          <p>Work longer with less burnout by stabilizing energy and building focus habits.</p>
+        </div>
+        <div class="card feature">
+          <div class="icon">🔥</div>
+          <h3>Better body composition</h3>
+          <p>Simple nutrition rules that make fat loss easier and training feel better.</p>
+        </div>
+      </div>
+
+      <div style="height:14px"></div>
+
+      <div class="grid3">
+        <div class="card quote">
+          <p>Within two weeks my energy stabilized and my cravings dropped hard. I felt calm and focused for the first time in years.</p>
+          <div class="who">— Client A (placeholder)</div>
+        </div>
+        <div class="card quote">
+          <p>It wasn’t motivation — it was the system. The routines were simple and I finally stayed consistent.</p>
+          <div class="who">— Client B (placeholder)</div>
+        </div>
+        <div class="card quote">
+          <p>My brain fog improved, my sleep got deeper, and my work sessions became way more productive.</p>
+          <div class="who">— Client C (placeholder)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>FAQ</h2>
+          <p class="sub">Quick answers to common questions before you book.</p>
+        </div>
+      </div>
+
+      <details>
+        <summary>Is this medical advice?</summary>
+        <p>
+          No. This is education + coaching. I help you build habits and nutrition systems.
+          Always consult a qualified healthcare professional for medical concerns.
+        </p>
+      </details>
+
+      <details>
+        <summary>Do I have to do strict carnivore?</summary>
+        <p>
+          Not necessarily. Some clients do strict carnivore short-term, others do animal-based.
+          We choose what fits your body, lifestyle, and goals.
+        </p>
+      </details>
+
+      <details>
+        <summary>What if I struggle with consistency?</summary>
+        <p>
+          That’s the point. We reduce complexity and build a daily system you can follow even when motivation is low.
+        </p>
+      </details>
+
+      <details>
+        <summary>How fast will I feel better?</summary>
+        <p>
+          Many people notice changes in energy, digestion, and focus within 7–14 days, but results vary.
+          The goal is sustainable improvement, not quick hacks.
+        </p>
+      </details>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Book a free consultation</h2>
+          <p class="sub">
+            Fill this out and I’ll reply with next steps. Want a booking link instead?
+            Replace the form button with your Calendly link.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card feature">
+          <div class="icon">✅</div>
+          <h3>What happens on the call</h3>
+          <p>
+            We’ll identify what’s blocking your energy/focus, pick the right program,
+            and map a simple 30-day plan.
+          </p>
+          <div style="height:10px"></div>
+          <div class="stack">
+            <span class="pill">No pressure</span>
+            <span class="pill">Clear plan</span>
+            <span class="pill">Fast next steps</span>
+          </div>
+        </div>
+
+        <div class="card feature">
+          <form onsubmit="return handleSubmit(event)">
+            <div>
+              <label for="name">Name</label>
+              <input id="name" name="name" placeholder="Your name" required />
+            </div>
+
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@email.com" required />
+            </div>
+
+            <div class="full">
+              <label for="goal">Primary goal</label>
+              <select id="goal" name="goal" required>
+                <option value="" disabled selected>Select one</option>
+                <option>Energy & recovery</option>
+                <option>Focus & productivity</option>
+                <option>Mental health & mood</option>
+                <option>Carnivore / animal-based nutrition</option>
+                <option>Full level up transformation</option>
+              </select>
+            </div>
+
+            <textarea id="message" name="message" placeholder="Tell me your biggest struggle + what you want to improve..." required></textarea>
+
+            <div class="full form-actions">
+              <button class="btn primary" type="submit">Send Application</button>
+              <a class="btn" href="#top">Back to top</a>
+            </div>
+
+            <p class="fineprint full">
+              Note: This demo form doesn’t send anywhere yet. To make it live, connect a free form tool (Netlify Forms)
+              or replace this with a Calendly booking link.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-row">
+        <div>
+          <div class="brand" style="gap:10px">
+            <span class="logo" aria-hidden="true"></span>
+            <span style="font-weight:900;color:var(--text)">Level Up Biology</span>
+          </div>
+          <p class="tiny">
+            Biology-based consulting for self-improvement, carnivore/animal-based nutrition, mental performance,
+            energy, and focus systems.
+          </p>
+        </div>
+
+        <div style="display:flex;gap:18px;flex-wrap:wrap">
+          <a href="#services">Services</a>
+          <a href="#programs">Programs</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+
+      <div style="height:14px"></div>
+      <div class="footer-row">
+        <div>© <span id="year"></span> Level Up Biology. All rights reserved.</div>
+        <div>Built to run free on GitHub Pages / Netlify.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    hamburger?.addEventListener("click", () => {
+      mobileMenu.classList.toggle("open");
+    });
+
+    // Close mobile menu after clicking a link
+    [...mobileMenu.querySelectorAll("a")].forEach(a => {
+      a.addEventListener("click", () => mobileMenu.classList.remove("open"));
+    });
+
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Demo form handler (doesn't actually send)
+    function handleSubmit(e){
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      alert(`Thanks, ${name || "friend"}! Your message was captured (demo).\\n\\nTo make this form live, host on Netlify and enable Netlify Forms, or replace with your Calendly link.`);
+      e.target.reset();
+      return false;
+    }
+  </script>
+</body>
+</html>
